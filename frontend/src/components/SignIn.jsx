@@ -32,13 +32,15 @@ function SignIn() {
 
   const SignInAPI = async (user) => {
     try {
+      console.log(user)
       const response = await axios.post(
         `${import.meta.env.VITE_REACT_APP_USERS_CALL}/signin`,
-        user
+        user,  { withCredentials: true }
       );
-      if (response.data.success) {
+      console.log(response.data)
+      if (response.data.success == true) {
         Data.setUser(response.data.message);
-        navigate('/homepage');
+        navigate('/mainpage');
       } else {
         setusernamevalid(false);
         setpasswordvalid(false);

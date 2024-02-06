@@ -75,11 +75,11 @@ function SignUp() {
     try {
       const response = await axios.post(
         `${import.meta.env.VITE_REACT_APP_USERS_CALL}/SignUp`,
-        user
+        user,  { withCredentials: true }
       );
       if (response.data !== "User already exists") {
         Data.setUser(response.data);
-        navigate("/homepage");
+        navigate("/mainpage");
       }
       return response.data;
     } catch (error) {
