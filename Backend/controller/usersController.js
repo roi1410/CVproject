@@ -42,13 +42,15 @@ exports.getAllUsers = async (req, res) => {
   }
 };
 exports.Signin = async (req, res) => {
-  const usernameexist = doesUsernameExist(req.name);
-  if (usernameexist) {
-    usernameexist.password == req.password
-      ? res.send(usernameexist)
-      : "Password is not correct";
-  }
-  return "Username is not exist";
+  const usernameexist = await doesUsernameExist(req.body.username);
+  if (usernameexist && usernameexist.password == req.body.password) {
+    console.log(usernameexist);
+    res.status(200).json({
+      success: true,
+      message:usernameexist,
+    });
+    // usernameexist.password == req.body.password ? res.send(usernameexist) : res.send("Password is not correct");
+  } else res.send("Username or password are invalid");
 };
 
 exports.deleteAllUsers = async (req, res) => {

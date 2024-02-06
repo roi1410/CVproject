@@ -15,7 +15,41 @@ import Context from "./Context";
 import axios from "axios";
 import { NavLink, useNavigate } from "react-router-dom";
 
-const AnimatedPaper = styled(MuiPaper)`
+function SignIn() {
+  const Data = useContext(Context);
+  const navigate = useNavigate();
+  const usernameRef = useRef(null);
+  const passwordRef = useRef(null);
+  const [usernamevalid, setusernamevalid] = useState(true);
+  const [passwordvalid, setpasswordvalid] = useState(true);
+
+  const handleLogin = async () => {
+    const username = usernameRef.current.value;
+    const password = passwordRef.current.value;
+    const loginData = { username, password };
+    const response = await SignInAPI(loginData);
+  };
+
+  const SignInAPI = async (user) => {
+    try {
+      const response = await axios.post(
+        `${import.meta.env.VITE_REACT_APP_USERS_CALL}/signin`,
+        user
+      );
+      if (response.data.success) {
+        Data.setUser(response.data.message);
+        navigate('/homepage');
+      } else {
+        setusernamevalid(false);
+        setpasswordvalid(false);
+      }
+      return response.data;
+    } catch (error) {
+      console.error(error.message);
+      return response.data;
+    }
+  };
+  const AnimatedPaper = styled(MuiPaper)`
   border-radius: 8% 10% 11% 9%;
   animation: fkbarda 2s infinite alternate ease-in-out;
 
@@ -33,61 +67,6 @@ const AnimatedPaper = styled(MuiPaper)`
   }
 `;
 
-function SignUp() {
-  const Data = useContext(Context);
-  const navigate = useNavigate();
-  const usernameRef = useRef(null);
-  const passwordRef = useRef(null);
-  const emailRef = useRef(null);
-  const [usernamevalid, setusernamevalid] = useState(true);
-  const [passwordvalid, setpasswordvalid] = useState(true);
-  const [emailvalid, setemailvalid] = useState(true);
-  const [usernameerror, setUsernameerror] = useState(
-    "Username must be longer than 8 characters"
-  );
-
-  const handleLogin = async () => {
-    const username = usernameRef.current.value;
-    const password = passwordRef.current.value;
-    const email = emailRef.current.value;
-
-    const isUsernameValid = username.length > 8;
-    const isPasswordValid = /^(?=.*\d)(?=.*[a-zA-Z])[a-zA-Z\d]{8,}$/.test(
-      password
-    );
-    const isEmailValid = /\S+@\S+\.\S+/.test(email);
-
-    setusernamevalid(isUsernameValid);
-    setpasswordvalid(isPasswordValid);
-    setemailvalid(isEmailValid);
-    setUsernameerror("Username must be longer than 8 characters");
-
-    if (isUsernameValid && isPasswordValid && isEmailValid) {
-      const loginData = { username, password, email };
-      const response = await SignUpAPI(loginData);
-      response === "User already exists"
-        ? (setusernamevalid(false), setUsernameerror("Username already exists"))
-        : setemailvalid(true);
-    }
-  };
-
-  const SignUpAPI = async (user) => {
-    try {
-      const response = await axios.post(
-        `${import.meta.env.VITE_REACT_APP_USERS_CALL}/SignUp`,
-        user
-      );
-      if (response.data !== "User already exists") {
-        Data.setUser(response.data);
-        navigate("/homepage");
-      }
-      return response.data;
-    } catch (error) {
-      console.error(error.message);
-      return response.data;
-    }
-  };
-
   return (
     <>
       <div className="signinpage">
@@ -97,15 +76,15 @@ function SignUp() {
               width: 300,
               mx: "auto",
               my: 2,
-              p: 3,
+              p: 2,
               display: "flex",
               flexDirection: "column",
-              backgroundColor:'rgba(44,44,44,0.6)',
-              gap: 1,
+              gap: 2,
+              borderRadius: "11% 10% 13% 17%",
+              backgroundColor: "rgba(44,44,44,0.6)",
+              animation: "fkbarda 4s infinite alternate ease-in-out",
               boxShadow: "md",
-              border: !usernamevalid || !passwordvalid || !emailvalid
-                ? "1px solid #ff0e0088"
-                : "1px solid #0082ff88",
+              border: !usernamevalid || !passwordvalid ? "1px solid #ff0e00" : "1px solid #0082ff",
             }}
             variant="outlined"
           >
@@ -118,10 +97,10 @@ function SignUp() {
                 }}
                 variant="h4"
               >
-                <b>Sign Up</b>
+                <b>Sign in</b>
               </Typography>
               <Typography variant="body2">
-                Please sign up to continue.
+                Please sign in to continue.
               </Typography>
             </div>
             <FormControl>
@@ -136,7 +115,7 @@ function SignUp() {
               {!usernamevalid && (
                 <FormHelperText error>
                   <ErrorOutlined />
-                  {usernameerror}
+                  Username is not valid
                 </FormHelperText>
               )}
             </FormControl>
@@ -152,40 +131,19 @@ function SignUp() {
               {!passwordvalid && (
                 <FormHelperText error>
                   <ErrorOutlined />
-                  Password must contain at least one number, one character, and
-                  one capital letter
-                </FormHelperText>
-              )}
-            </FormControl>
-            <FormControl>
-              <FormLabel error={!emailvalid}>Email</FormLabel>
-              <Input
-                name="email"
-                type="email"
-                placeholder="Email Address"
-                error={!emailvalid}
-                inputRef={emailRef}
-              />
-              {!emailvalid && (
-                <FormHelperText error>
-                  <ErrorOutlined />
-                  Please enter a valid email address
+                  Password is not valid
                 </FormHelperText>
               )}
             </FormControl>
             <Button sx={{ mt: 1 }} onClick={handleLogin}>
-              Sign Up
+              Log in
             </Button>
-            <NavLink to="/signin">
+            <NavLink to="/signup">
               <Typography
                 variant="body2"
-                sx={{
-                  justifyContent: "center",
-                  display: "flex",
-                  width: "100%",
-                }}
+                sx={{ justifyContent: "center", display: "flex", width: "100%" }}
               >
-                Already have an account? Sign In
+                Don't you have an account?
               </Typography>
             </NavLink>
           </AnimatedPaper>
@@ -195,4 +153,4 @@ function SignUp() {
   );
 }
 
-export default SignUp;
+export default SignIn;
