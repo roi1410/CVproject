@@ -3,7 +3,10 @@ import { Dialog } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
 // heare i can add links to the nav bar
-const navigation = [{ name: "SingUp", to: "/" }];
+const navigation = [
+  { name: "SingUp", to: "/" },
+  { name: "PDFForms", to: "PDFForms" },
+];
 
 export default function NavBar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
