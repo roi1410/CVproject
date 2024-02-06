@@ -1,9 +1,10 @@
 import { Route, BrowserRouter, Routes } from "react-router-dom";
 import Layout from "./components/Layout";
-import SingUp from "./components/SingUp";
 import SignIn from "./components/SignIn";
 import MainPage from "./components/mainpage";
 import { ContextProvider } from './components/Context.jsx'
+import EditPDF from "./components/EditPDF";
+
 export default function App() {
   return (
     <>
@@ -11,7 +12,7 @@ export default function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Layout />}>
-            <Route path="/signup" element={<SingUp />}></Route>
+            <Route path="PDFForms" element={<EditPDF/>}></Route>
             <Route path="/signin" element={<SignIn/>}></Route>
             <Route path="/mainpage" element={<MainPage/>}></Route>
 
