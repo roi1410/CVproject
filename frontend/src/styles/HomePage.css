@@ -1,0 +1,124 @@
+.homepage
+{
+    width: 100vw;
+    height:50vw;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+.homepage-textdiv
+{
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: column;
+    width: 40vw;
+    height: 45vw;
+    
+}
+.subtitledreamjob
+{
+    height: 30%;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+}
+.subtitledreamjob Button
+{
+    width: 50%;
+}
+.dreamjob
+{  
+    animation: slideInFromLeft 0.8s ease-out forwards;
+    animation-delay: 1s;
+    opacity: 0;
+}
+.homepage-img
+{
+    animation: slideInFromRight 1.2s ease-out;
+    width: 50vw;
+    height: 50vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.homepage-img img
+{
+    width: 80%;
+    height: 80%;
+}
+
+.secondnote
+{
+    background-color: rgb(44, 44, 44);
+    width: 100vw;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: row;
+    height: 50vh;
+}
+.secondtext
+{
+    width: 50%;
+
+}
+.secondimg
+{
+    animation: slideInFromLeft 1.2s ease-out forwards;
+    width: 40vw;
+    box-shadow: 4px 4px 4px 4px rgba(255, 255, 255, 0.3);}
+.mainsteps
+{
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin-top: 10vh;
+}
+.steps
+{
+    margin-top: 7vh;
+    width: 100vw;
+    height: 60vh;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-around;
+    flex-direction: row;
+}
+.steps div
+{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+    width: 30%;
+    height: 50vh;
+}
+.innerstep
+{
+    display: flex;
+    height: 100%;
+    justify-content: space-between;
+}
+
+@keyframes slideInFromRight {
+    0% {
+      transform: translateX(200%);
+      opacity: 0;
+    }
+    100% {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+  @keyframes slideInFromLeft {
+    0% {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+    100% {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
