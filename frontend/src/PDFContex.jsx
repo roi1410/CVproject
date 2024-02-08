@@ -16,6 +16,7 @@ const PDFContext = ({ children }) => {
     setValue(data);
   }
   const defultValue = {
+    PDFName: "Default",
     fullName: "roi",
     experiences: [
       {
@@ -81,6 +82,7 @@ const PDFContext = ({ children }) => {
       LinkedIn: "",
       website: "",
     },
+   
   };
 
   const PDFstyles = StyleSheet.create({
@@ -118,6 +120,7 @@ const PDFContext = ({ children }) => {
   const [debouncedValue, setValue] = useDebounceValue(defultValue, 5000);
 
   useEffect(() => {
+    dispatch({ type: "PDFNameChange", PDFName: debouncedValue.PDFName });
     dispatch({ type: "fullnameChange", fullName: debouncedValue.fullName });
     dispatch({
       type: "primaryPositionChange",

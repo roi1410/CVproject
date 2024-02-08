@@ -13,13 +13,14 @@ function SendDataBtn() {
     const PDFArray = async()=>
      {
         setAllPDF((prev)=>[...prev,state])
-        console.log(`${import.meta.env.VITE_REACT_APP_USERS_CALL}/AddCV/${user._id}`)
+        console.log(state)
         const response = await axios.post(`${import.meta.env.VITE_REACT_APP_USERS_CALL}/AddCV/${user._id}`, state, {
       withCredentials: true,
     });
     console.log(response.data)
     if(response.data.type === 'info')
-    {navigate('/mainpage')
+    {
+      navigate('/mainpage')
     userContext.setToastData({content:response.data.message, type:response.data.type})
     }
   }

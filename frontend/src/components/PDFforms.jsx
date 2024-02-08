@@ -9,7 +9,7 @@ import { PDFredocer } from "../PDFredocer";
 import { allContext } from "../PDFContex";
 import { useDebounceValue, useInterval } from "usehooks-ts";
 import SendDataBtn from "./PDFformComponents/SendDataBtn";
-
+import PDFName from "./PDFFormComponents/PDFName";
 function PDFforms() {
   const {
     handleSubmit,
@@ -35,7 +35,9 @@ function PDFforms() {
   return (
     <>
       <form onSubmit={handleSubmit((data) => console.log(data))}>
+     
         <AboutMeForm register={register} dispatch={dispatch} />
+        <PDFName register={register}/>
         <ContactsForm register={register} trigger={trigger} />
         <ExperienceForm register={register} />
         <ExperienceSummery register={register} />
