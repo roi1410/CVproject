@@ -29,6 +29,7 @@ function MainPage() {
     return (
       <>
        <h1 className='center' style={{color:'white'}}>MainPage</h1>
+       <button onClick={()=> navigate('/PDFForms')}>PDFForms</button>
         <Footer/>
       </>
     )

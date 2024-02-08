@@ -16,7 +16,7 @@ const usersSchema = new mongoose.Schema({
   },
   cv:
   {
-    type: [Number],
+    type: [Object],
     required: true,
   }
 });

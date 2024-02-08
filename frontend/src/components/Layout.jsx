@@ -19,7 +19,7 @@ useEffect(() => {
     pauseOnHover: true,
     draggable: true,
     progress: undefined,
-    theme: "light",
+    theme: "dark",
     transition: Slide,
     });
     Data.setToastData({})
@@ -34,7 +34,7 @@ useEffect(() => {
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
-        theme: "light",
+        theme: "dark",
         transition: Slide,
         });
         Data.setToastData({})

@@ -128,8 +128,6 @@ exports.authenticate = async (req, res) => {
     if (!token) {
       return res.status(401).json({ message: "No token provided." });
     }
-
-
     const decoded = jwt.verify(token, process.env.SECRET);
     const answer = decoded._id == req.params.id;
    
@@ -139,6 +137,77 @@ exports.authenticate = async (req, res) => {
     res.status(500).json({ message: error.message || "An error occurred." });
   }
 };
+exports.GetAllCV = async (req,res) => {
+  try{
+  const id = req.params.id;
+  const token = req.cookies.token;
+
+  if (!token) {
+    return res.status(401).json({ message: "No token provided." });
+  }
+  const decoded = jwt.verify(token, process.env.SECRET);
+  const answer = decoded._id == id;
+  if(answer) //verifed
+  {
+    const user = await Users.findById(id);
+    res.status(200).json(user.cv);
+  }
+  else
+  {
+    res.status(404).json({message:"Token is not valid"})
+  }
+}
+catch(e)
+{
+  res.status(500).json({message:e.message || "an error occurred"});
+}
+}
+exports.AddCV = async (req, res) => {
+  const id = req.params.id;
+  try {
+    const user = await Users.findById(id);
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found",type:'error' });
+    }
+    const newCVData = req.body;
+    console.log(req.body);
+    user.cv.push(newCVData);
+    const updatedUser = await user.save();
+    res.status(200).json({ message: "CV added successfully", user: updatedUser, type:'info' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: error.message || "An error occurred.", type:'error' });
+  }
+};
+
+exports.deleteCVByIndex = async (req, res) => {
+  const userId = req.params.id;
+  const cvIndex = req.params.index;
+
+  try {
+    const user = await Users.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    const cvArray = user.cv;
+
+    if (cvIndex < 0 || cvIndex >= cvArray.length) {
+      return res.status(400).json({ message: "Invalid CV index" });
+    }
+
+    cvArray.splice(cvIndex, 1);
+
+    const updatedUser = await user.save();
+    res.status(200).json({ message: "CV deleted successfully", user: updatedUser });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: error.message || "An error occurred." });
+  }
+};
+
 async function ValidUser(recievedUser) {
   try {
     const existingUser = await Users.findOne({ username:recievedUser?.username });
