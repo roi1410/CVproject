@@ -1,6 +1,7 @@
 import { useContext, useEffect } from "react"
 import Context from "./Context";
 import { useNavigate } from "react-router";
+import Footer from "./Footer";
 
 function MainPage() {
   const navigate = useNavigate();
@@ -28,7 +29,7 @@ function MainPage() {
     return (
       <>
        <h1 className='center' style={{color:'white'}}>MainPage</h1>
-
+        <Footer/>
       </>
     )
   }

@@ -52,7 +52,7 @@ useEffect(() => {
         main: '#15ff00',
       },
       background: {
-        default: 'white',
+        default: 'black',
         paper: '#313131',
       },
       error: {

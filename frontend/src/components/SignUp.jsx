@@ -149,10 +149,13 @@ function SignUp() {
                 error={!passwordvalid}
                 inputRef={passwordRef}
               />
-              {errors.password?.message && (
-                <span className="text-red-500">{errors.password.message}</span>
-              )}
             </FormControl>
+            {!passwordvalid && (
+                <FormHelperText error>
+                  <ErrorOutlined />
+                  Password must be longer than 8 and must contain capital letter and numbers
+                </FormHelperText>
+              )}
             <FormControl>
               <FormLabel error={!emailvalid} sx={{ color: "white" }}>Email</FormLabel>
               <Input

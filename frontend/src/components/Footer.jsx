@@ -3,8 +3,8 @@ function Footer() {
     return (
       <>
 <footer>
-<div class="footer">
-<div class="row">
+<div className="footer">
+<div className="row">
 <ul>
 <li><a href="#">Contact us</a></li>
 <li><a href="#">Our Services</a></li>
@@ -14,7 +14,7 @@ function Footer() {
 </ul>
 </div>
 
-<div class="row">
+<div className="row">
 Ariel and Revivo copyright © All rights reserved 
 </div>
 </div>
