@@ -1,10 +1,24 @@
 const Users = require("../models/usersModel");
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
+const saltRounds = 11;
 exports.createUser = async (req, res) => {
   try {
-    const answer = await doesUsernameExist(req.body.username);
-    if (!answer) {
-      const newUsers = await Users.create(req.body);
-      return res.send(newUsers);
+    const userexist = await Users.findOne({ username:req.body.username });
+    if (!userexist) {
+      let usertosave ={username:req.body.username, email:req.body.email}
+      const hashedPassword = await bcrypt.hash(req.body.password, saltRounds);
+      usertosave.password = hashedPassword;
+      const newUser = await Users.create(usertosave);
+      const token = jwt.sign({ _id: newUser._id }, process.env.SECRET, {
+        expiresIn: "1h",
+      });
+      res.cookie("token", token, {
+        httpOnly: true,
+        maxAge: 60000,
+        sameSite: "strict",
+      });
+      return res.send(newUser);
     }
     return res.send("User already exists");
   } catch (e) {
@@ -42,15 +56,24 @@ exports.getAllUsers = async (req, res) => {
   }
 };
 exports.Signin = async (req, res) => {
-  const usernameexist = await doesUsernameExist(req.body.username);
-  if (usernameexist && usernameexist.password == req.body.password) {
-    console.log(usernameexist);
+  const validUser = await ValidUser(req.body);
+  if (validUser) {
+    const token = jwt.sign({ _id: validUser._id }, process.env.SECRET, {
+      expiresIn: "1h",
+    });
+    res.cookie("token", token, {
+      httpOnly: true,
+      maxAge: 60000,
+      sameSite: "strict",
+    });
     res.status(200).json({
       success: true,
-      message:usernameexist,
+      message:{username:validUser.username, email:validUser.email, _id:validUser._id},
     });
-    // usernameexist.password == req.body.password ? res.send(usernameexist) : res.send("Password is not correct");
-  } else res.send("Username or password are invalid");
+  } else res.status(200).json({
+    success: false,
+    message:'Username or password ivalid',
+  });;
 };
 
 exports.deleteAllUsers = async (req, res) => {
@@ -98,15 +121,32 @@ exports.deleteById = async (req, res) => {
     res.status(500).send("Internal Server Error");
   }
 };
-
-async function doesUsernameExist(username) {
+exports.authenticate = async (req, res) => {
   try {
-    const existingUser = await Users.findOne({ username });
-    if (existingUser) {
-      return existingUser;
-    } else {
-      return false;
+    const token = req.cookies.token;
+
+    if (!token) {
+      return res.status(401).json({ message: "No token provided." });
     }
+
+
+    const decoded = jwt.verify(token, process.env.SECRET);
+    const answer = decoded._id == req.params.id;
+   
+    console.log(decoded._id, req.params.id,'a')
+    res.status(200).json({success:answer,message:token});
+  } catch (error) {
+    res.status(500).json({ message: error.message || "An error occurred." });
+  }
+};
+async function ValidUser(recievedUser) {
+  try {
+    const existingUser = await Users.findOne({ username:recievedUser?.username });
+    if(existingUser)
+    if (await bcrypt.compare(recievedUser.password, existingUser?.password)) {
+      return existingUser;
+    }
+    return false;
   } catch (error) {
     console.error("Error checking name existence:", error);
     return false;

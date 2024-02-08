@@ -7,15 +7,14 @@ import {
   Input,
   Paper as MuiPaper,
   Typography,
-  Link,
   FormHelperText,
 } from "@mui/material";
 import ErrorOutlined from "@mui/icons-material/ErrorOutlined";
+import { NavLink, useNavigate } from "react-router-dom";
 import Context from "./Context";
 import axios from "axios";
-import { NavLink, useNavigate } from "react-router-dom";
 
-function SignIn() {
+const SignIn = () => {
   const Data = useContext(Context);
   const navigate = useNavigate();
   const usernameRef = useRef(null);
@@ -32,13 +31,13 @@ function SignIn() {
 
   const SignInAPI = async (user) => {
     try {
-      console.log(user)
       const response = await axios.post(
         `${import.meta.env.VITE_REACT_APP_USERS_CALL}/signin`,
-        user,  { withCredentials: true }
+        user,
+        { withCredentials: true }
       );
-      console.log(response.data)
-      if (response.data.success == true) {
+
+      if (response.data.success === true) {
         Data.setUser(response.data.message);
         navigate('/mainpage');
       } else {
@@ -48,26 +47,26 @@ function SignIn() {
       return response.data;
     } catch (error) {
       console.error(error.message);
-      return response.data;
+      return error.response.data;
     }
   };
-  const AnimatedPaper = styled(MuiPaper)`
-  border-radius: 8% 10% 11% 9%;
-  animation: fkbarda 2s infinite alternate ease-in-out;
 
-  @keyframes fkbarda {
-    0% {
-      border-radius: 12% 11% 8% 12%;
+  const AnimatedPaper = styled(MuiPaper)`
+    border-radius: 8% 10% 11% 9%;
+    animation: fkbarda 2s infinite alternate ease-in-out;
+
+    @keyframes fkbarda {
+      0% {
+        border-radius: 12% 11% 8% 12%;
+      }
+      50% {
+        border-radius: 12% 10% 13% 9%;
+      }
+      100% {
+        border-radius: 12% 8% 12% 7%;
+      }
     }
-    50%
-    {
-      border-radius: 12% 10% 13% 9%;
-    }
-    100% {
-      border-radius: 12% 8% 12% 7%;
-    }
-  }
-`;
+  `;
 
   return (
     <>
@@ -87,6 +86,7 @@ function SignIn() {
               animation: "fkbarda 4s infinite alternate ease-in-out",
               boxShadow: "md",
               border: !usernamevalid || !passwordvalid ? "1px solid #ff0e00" : "1px solid #0082ff",
+              color: "white", // Set text color to white
             }}
             variant="outlined"
           >
@@ -96,18 +96,22 @@ function SignIn() {
                   display: "flex",
                   width: "100%",
                   justifyContent: "center",
+                  color: "white", // Set text color to white
                 }}
                 variant="h4"
               >
                 <b>Sign in</b>
               </Typography>
-              <Typography variant="body2">
+              <Typography variant="body2" sx={{ color: "white" }}>
                 Please sign in to continue.
               </Typography>
             </div>
             <FormControl>
-              <FormLabel error={!usernamevalid}>Username</FormLabel>
+              <FormLabel error={!usernamevalid} sx={{ color: "white" }}>
+                Username
+              </FormLabel>
               <Input
+                className="custom-input" // Add a class for styling
                 name="Username"
                 type="text"
                 placeholder="Username"
@@ -115,15 +119,18 @@ function SignIn() {
                 inputRef={usernameRef}
               />
               {!usernamevalid && (
-                <FormHelperText error>
+                <FormHelperText error sx={{ color: "white" }}>
                   <ErrorOutlined />
                   Username is not valid
                 </FormHelperText>
               )}
             </FormControl>
             <FormControl>
-              <FormLabel error={!passwordvalid}>Password</FormLabel>
+              <FormLabel error={!passwordvalid} sx={{ color: "white" }}>
+                Password
+              </FormLabel>
               <Input
+                className="custom-input" // Add a class for styling
                 name="password"
                 type="password"
                 placeholder="Password"
@@ -131,7 +138,7 @@ function SignIn() {
                 inputRef={passwordRef}
               />
               {!passwordvalid && (
-                <FormHelperText error>
+                <FormHelperText error sx={{ color: "white" }}>
                   <ErrorOutlined />
                   Password is not valid
                 </FormHelperText>
@@ -143,7 +150,7 @@ function SignIn() {
             <NavLink to="/signup">
               <Typography
                 variant="body2"
-                sx={{ justifyContent: "center", display: "flex", width: "100%" }}
+                sx={{ justifyContent: "center", display: "flex", width: "100%", color: "white" }}
               >
                 Don't you have an account?
               </Typography>
@@ -153,6 +160,6 @@ function SignIn() {
       </div>
     </>
   );
-}
+};
 
 export default SignIn;

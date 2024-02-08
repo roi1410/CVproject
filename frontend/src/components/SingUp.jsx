@@ -16,19 +16,19 @@ import axios from "axios";
 import { NavLink, useNavigate } from "react-router-dom";
 
 const AnimatedPaper = styled(MuiPaper)`
-  border-radius: 8% 10% 11% 9%;
-  animation: fkbarda 2s infinite alternate ease-in-out;
+  border-radius: 15% 18% 15% 21%;
+  animation: fkbarda 1s infinite alternate ease-in-out;
 
   @keyframes fkbarda {
     0% {
-      border-radius: 12% 11% 8% 12%;
+      border-radius: 18% 15% 21% 16%;
     }
     50%
     {
-      border-radius: 12% 10% 13% 9%;
+      border-radius: 21% 21% 15% 22%;
     }
     100% {
-      border-radius: 12% 8% 12% 7%;
+      border-radius: 15% 18% 21% 18%;
     }
   }
 `;
@@ -120,12 +120,12 @@ function SignUp() {
               >
                 <b>Sign Up</b>
               </Typography>
-              <Typography variant="body2">
+              <Typography variant="body2" >
                 Please sign up to continue.
               </Typography>
             </div>
             <FormControl>
-              <FormLabel error={!usernamevalid}>Username</FormLabel>
+              <FormLabel error={!usernamevalid} sx={{ color: "white" }}>Username</FormLabel>
               <Input
                 name="Username"
                 type="text"
@@ -141,7 +141,7 @@ function SignUp() {
               )}
             </FormControl>
             <FormControl>
-              <FormLabel error={!passwordvalid}>Password</FormLabel>
+              <FormLabel error={!passwordvalid} sx={{ color: "white" }}>Password</FormLabel>
               <Input
                 name="password"
                 type="password"
@@ -158,7 +158,7 @@ function SignUp() {
               )}
             </FormControl>
             <FormControl>
-              <FormLabel error={!emailvalid}>Email</FormLabel>
+              <FormLabel error={!emailvalid} sx={{ color: "white" }}>Email</FormLabel>
               <Input
                 name="email"
                 type="email"

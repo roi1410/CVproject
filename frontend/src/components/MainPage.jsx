@@ -12,12 +12,17 @@ function MainPage() {
   const authentic = async() => {
     try{
     const response =  await Data.authenticate(Data?.user._id);
-     if (response?.data.success != true) 
+     if (response?.data.success != true) {
+      Data.setToastData({content:`Token ended, please sign in`,type:'error'});
      navigate("/signin");
+     }
   }
   catch(e)
   {
     console.log(e);
+    navigate("/signin");
+    Data.setToastData({content:`Token ended, please sign in`,type:'error'});
+
   }
   }   
     return (

@@ -4,6 +4,7 @@ import { createContext, useState } from "react";
 const Context = createContext();
 
 export const ContextProvider = ({ children }) => {
+  
   const authenticate = async (id) => {
     const response = await axios.get(`${import.meta.env.VITE_REACT_APP_USERS_CALL}/authenticate/${id}`, {
       withCredentials: true,
@@ -12,9 +13,9 @@ export const ContextProvider = ({ children }) => {
     return response;
   }
   const [user, setUser] = useState({ username: '', password: '', email: '' });
-
+  const [toastData,setToastData] = useState({});
   return (
-    <Context.Provider value={{ user, setUser,authenticate }}>
+    <Context.Provider value={{ user, setUser,authenticate,toastData,setToastData }}>
       {children}
     </Context.Provider>
   );
