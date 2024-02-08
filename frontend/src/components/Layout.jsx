@@ -1,9 +1,47 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import { CssBaseline, ThemeProvider, createTheme } from '@mui/material';
 import { Outlet } from 'react-router-dom';
 import DynamicNavBar from './DynamicNavBar';
-
+import { Bounce, Slide, ToastContainer, toast } from 'react-toastify';
+import Context from './Context';
+import 'react-toastify/dist/ReactToastify.css';
 function Layout() {
+  const Data = useContext(Context);
+useEffect(() => {
+  console.log(Data?.toastData?.type)
+  if(Data?.toastData?.type =="info")
+  {
+  toast.info(Data?.toastData?.content, {
+    position: "top-center",
+    autoClose: 2400,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "light",
+    transition: Slide,
+    });
+    Data.setToastData({})
+  }
+    if(Data?.toastData?.type == "error")
+    {
+      toast.error(Data?.toastData?.content, {
+        position: "top-center",
+        autoClose: 2400,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Slide,
+        });
+        Data.setToastData({})
+    }
+    
+},[Data?.toastData]);
+
   const themeOptions = {
     palette: {
       type: 'dark',
@@ -25,9 +63,14 @@ function Layout() {
       },
       info: {
         main: '#f900ff',
+        secondary: '#fff'
       },
       success: {
         main: '#00ff09',
+      },
+      text: {
+        // Set default text color to white
+        primary: '#ffffff',
       },
     },
   };
@@ -36,7 +79,9 @@ function Layout() {
 
   return (
     <div style={{ backgroundColor: theme.palette.background.default }}>
-      <ThemeProvider theme={theme}>
+
+      <ThemeProvider theme={theme}>   
+      <ToastContainer/>
         <CssBaseline style={{ color: 'white' }} />
         <DynamicNavBar />
         <Outlet />
