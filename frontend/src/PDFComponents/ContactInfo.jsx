@@ -1,4 +1,4 @@
-import React from "react";
+import {memo} from "react";
 import { View, Text, StyleSheet, Font, Link } from "@react-pdf/renderer";
 import TitilliumWebBlack from "../assets/fonts/TitilliumWeb-Black.ttf";
 Font.register({
@@ -78,4 +78,4 @@ const ContactInfo = ({ contactInfo }) => {
   );
 };
 //
-export default ContactInfo;
+export default memo(ContactInfo);

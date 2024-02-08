@@ -52,7 +52,7 @@ useEffect(() => {
         main: '#15ff00',
       },
       background: {
-        default: '#000000',
+        default: 'white',
         paper: '#313131',
       },
       error: {
@@ -85,6 +85,7 @@ useEffect(() => {
         <CssBaseline style={{ color: 'white' }} />
         <DynamicNavBar />
         <Outlet />
+        
       </ThemeProvider>
     </div>
   );

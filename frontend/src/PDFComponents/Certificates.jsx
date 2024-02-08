@@ -56,4 +56,4 @@ const Certificates = ({ certification }) => {
   );
 };
 
-export default memo(Certificates);
+export default Certificates;
