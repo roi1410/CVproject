@@ -71,4 +71,4 @@ const AboutMe = ({ aboutDescription, contactInfo }) => {
   );
 };
 
-export default memo(AboutMe);
+export default AboutMe;

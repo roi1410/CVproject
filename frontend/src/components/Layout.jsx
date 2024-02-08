@@ -14,7 +14,7 @@ function Layout() {
         main: '#15ff00',
       },
       background: {
-        default: '#000000',
+        default: 'white',
         paper: '#313131',
       },
       error: {
@@ -40,6 +40,7 @@ function Layout() {
         <CssBaseline style={{ color: 'white' }} />
         <DynamicNavBar />
         <Outlet />
+        
       </ThemeProvider>
     </div>
   );

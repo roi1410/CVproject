@@ -141,4 +141,4 @@ const Header = ({ fullName, primaryPosition,url }) => {
   );
 };
 
-export default memo( Header);
+export default  Header;

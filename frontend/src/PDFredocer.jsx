@@ -1,20 +1,64 @@
-const num = Math.random() * 1000;
 export function PDFredocer(state, action) {
-  switch (true) {
-    case action.type === "addTodo":
+  switch (action.type) {
+    case "fullnameChange":
       return {
-        newtodo: action.newtodo,
-        toDos: [
-          ...state.toDos,
-          { id: Math.floor(Math.random() * 1000), value: action.newtodo },
-        ],
+        ...state,
+        fullName: action.fullName,
       };
-
-    case action.type === "removeTodo":
+    case "experiencesChange":
       return {
-        toDos: state.toDos.filter((element) => element.id !== action.selectedTodo.id),
+        ...state,
+        experiences: action.experiences,
       };
-
+    case "primaryPositionChange":
+      return {
+        ...state,
+        primaryPosition: action.primaryPosition,
+      };
+    case "aboutDescriptionChange":
+      return {
+        ...state,
+        aboutDescription: action.aboutDescription,
+      };
+    case "contactInfoChange":
+      return {
+        ...state,
+        contactInfo: {
+          tel: action.contactInfo.tel,
+          email: action.contactInfo.email,
+          address: action.contactInfo.address,
+        },
+      };
+    case "educationChange":
+      return {
+        ...state,
+        education: action.education,
+      };
+    case "certificationChange":
+      return {
+        ...state,
+        certification: action.certification,
+      };
+    case "profileImgChange":
+      return {
+        ...state,
+        profileImg: action.profileImg,
+      };
+    case "backgroundImgChange":
+      return {
+        ...state,
+        backgroundImg: action.backgroundImg,
+      };
+    case "urlChange":
+      return {
+        ...state,
+        url: action.url,
+      };
+    case "company":
+      return {
+        ...state,
+        company: action.company,
+      };
     default:
       return state;
   }

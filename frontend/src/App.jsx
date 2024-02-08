@@ -4,6 +4,7 @@ import SignIn from "./components/SignIn";
 import MainPage from "./components/mainpage";
 import { ContextProvider } from './components/Context.jsx'
 import EditPDF from "./components/EditPDF";
+import "./styles/app.css"
 
 export default function App() {
   return (

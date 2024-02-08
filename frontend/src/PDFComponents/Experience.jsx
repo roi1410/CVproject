@@ -171,4 +171,4 @@ const Experience = ({ period, title, company, description, summary }) => {
   );
 };
 
-export default memo(Experience);
+export default Experience;
