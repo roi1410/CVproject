@@ -73,7 +73,7 @@ const Education = ({ education }) => {
               <Text style={styles.headingTitled}>{item.titled}</Text>
             </View>
             <View style={styles.containerList}>
-              {item.awarded.map((award, awardIndex) => (
+              {item.awarded && item.awarded.map((award, awardIndex) => (
                 <Text key={awardIndex}>
                   <Text style={{ marginHorizontal: 8 }}>• </Text>
                   {award}

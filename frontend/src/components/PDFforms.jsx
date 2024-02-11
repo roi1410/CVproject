@@ -1,4 +1,4 @@
-import {useContext, useReducer,useEffect, useState} from "react";
+import { useContext, useReducer, useEffect, useState } from "react";
 import AboutMeForm from "./PDFformComponents/AboutMeForm";
 import { useForm } from "react-hook-form";
 import ContactsForm from "./PDFformComponents/ComtactsForm";
@@ -8,43 +8,32 @@ import EducationFormFather from "./PDFformComponents/EducationFormFather";
 import { PDFredocer } from "../PDFredocer";
 import { allContext } from "../PDFContex";
 import { useDebounceValue, useInterval } from "usehooks-ts";
+import CertificatesForm from "./PDFformComponents/CertificatesForm";
+import { Outlet } from "react-router-dom";
 
 function PDFforms() {
-  const {
-    handleSubmit,
-    control,
-    register,
-    formState: { errors },
-    watch,
-    trigger,
-  } = useForm({
-    defaultValues: {
-      AboutMe: "",
-    },
-  });
-  const {dispatch,state,setValue}=useContext(allContext)
-  
-  
+  const { dispatch, state, setValue ,handleSubmit,watch,trigger} = useContext(allContext);
+
+
   useEffect(() => {
+    const formData = watch();
 
-    const formData = watch()
-  
-      setValue(formData)
-  }, [watch()])
-
- 
-
+    setValue(formData);
+  }, [watch()]);
 
   return (
     <>
-      <form onSubmit={handleSubmit((data) => console.log(data))}>
-        {/* <AboutMeForm register={register} dispatch={dispatch} /> */}
-        {/* <ContactsForm register={register} trigger={trigger}/> */}
-        {/* <ExperienceForm register={register} />
-        <ExperienceSummery register={register} /> */}
-      <EducationFormFather  register={register} control={control}/>
-
-        <button onClick={() => trigger()}>test</button>
+      <form
+        className="h-full box-border "
+        onSubmit={handleSubmit((data) => console.log(data))}
+      >
+        <Outlet/>
+        {/* <AboutMeForm  />  */}
+        {/* <ContactsForm/> */}
+        {/* <ExperienceSummery/> */}
+        {/* <EducationFormFather /> */}
+        {/* <CertificatesForm /> */}
+        
       </form>
     </>
   );

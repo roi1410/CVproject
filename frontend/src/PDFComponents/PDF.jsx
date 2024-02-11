@@ -18,10 +18,10 @@ import { PDFredocer } from "../PDFredocer";
 import { allContext } from "../PDFContex";
 
 function PDF() {
-  const {dispatch,state}=useContext(allContext)
+  const { dispatch, state } = useContext(allContext);
 
   // Create PDFstyles
- const {PDFstyles}=useContext(allContext)
+  const { PDFstyles } = useContext(allContext);
   return (
     <div
       style={PDFstyles.containerDiv}
@@ -44,7 +44,8 @@ function PDF() {
                 {"professionalExperience"}
               </Text>
             </View>
-            {state.experiences.length > 0 &&
+            {state.experiences &&
+              state.experiences.length > 0 &&
               state.experiences.map((element, key) => {
                 return (
                   <Experience
@@ -56,23 +57,24 @@ function PDF() {
                 );
               })}
             <Text style={PDFstyles.headingPrimary}>{"education"}</Text>
+            {state.education &&
+              state.education.length > 0 &&
+              Array.from(
+                { length: Math.ceil(state.education.length / 3) },
+                (_, groupIndex) => {
+                  const startIndex = groupIndex * 3;
+                  const endIndex = startIndex + 3;
+                  const group = state.education.slice(startIndex, endIndex);
 
-            {state.education.length > 0 &&
-              state.education.map((elment, i) => {
-                if ((i + 1) % 3 === 0) {
                   return (
                     <Education
-                      key={i}
-                      education={[
-                        state.education[i],
-                        state.education[i - 1],
-                        state.education[i - 2],
-                      ]}
+                      key={groupIndex}
+                      education={group}
                       certification={state.certification}
                     />
                   );
                 }
-              })}
+              )}
             <Certificates certification={state.certification} />
           </Page>
         </Document>

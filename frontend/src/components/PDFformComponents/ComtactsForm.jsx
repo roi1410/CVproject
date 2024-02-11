@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
+import { allContext } from "../../PDFContex";
 
-function ContactsForm({ register }) {
+function ContactsForm() {
+  const {register}=useContext(allContext)
   return (
+
     <>
         <h3 className=" text-xl font-bold dark:text-white">
         Contacts

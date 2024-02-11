@@ -11,11 +11,11 @@ const styles = StyleSheet.create({
     position: "relative", // set position to relative
     width: "100%",
     padding: 4,
-    margin:4,
+    margin: 4,
   },
   certImage: {
-    padding:"4px",
-    borderStyle:"outset",
+    padding: "4px",
+    borderStyle: "outset",
     border: "2px solid #03f8bd",
     width: "100%",
   },
@@ -35,21 +35,13 @@ const Certificates = ({ certification }) => {
   }
   return (
     <View style={styles.containerCertificates} wrap={false}>
-      {certification.urls.map((cert, index) => (
+      {certification.map((cert, index) => (
         <View key={index} style={styles.certImageContainer}>
           {/* <Image
             src={`../src/assets/image/certs/${getFilenameFromUrl(cert)}`}
             style={styles.certImage}
           /> */}
-           <Image
-            src={cert}
-            style={styles.certImage}
-          />
-          <Image
-            // src="https://img.icons8.com/material/200/D8D8D8/trophy.png"
-            src={Trophy}
-            style={styles.icon}
-          />
+          <Image src={cert} style={styles.certImage} />
         </View>
       ))}
     </View>

@@ -1,3 +1,15 @@
+// experiences: [
+//   {
+//     period: "4",
+//     company: "Microsoft",
+//     summary: {
+//       Frontend: ["Figma", "reactjsx"],
+//       Backend: ["node.js", "Technology"],
+//       management: ["head of  a fullstack team ", "head of cyber"],
+//     },
+//   },
+// ],
+
 export function PDFredocer(state, action) {
   switch (action.type) {
     case "fullnameChange":
@@ -10,6 +22,7 @@ export function PDFredocer(state, action) {
         ...state,
         experiences: action.experiences,
       };
+
     case "primaryPositionChange":
       return {
         ...state,
@@ -34,7 +47,7 @@ export function PDFredocer(state, action) {
         ...state,
         education: action.education,
       };
-    case "certificationChange":
+    case "certification":
       return {
         ...state,
         certification: action.certification,
@@ -44,11 +57,7 @@ export function PDFredocer(state, action) {
         ...state,
         profileImg: action.profileImg,
       };
-    case "backgroundImgChange":
-      return {
-        ...state,
-        backgroundImg: action.backgroundImg,
-      };
+
     case "urlChange":
       return {
         ...state,
