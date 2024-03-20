@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import styled from "@emotion/styled";
 import {
   Button,
@@ -11,187 +11,154 @@ import {
   FormHelperText,
 } from "@mui/material";
 import ErrorOutlined from "@mui/icons-material/ErrorOutlined";
-import Context from "./Context";
+import Context from "./../context/Context";
 import axios from "axios";
 import { NavLink, useNavigate } from "react-router-dom";
-
-const AnimatedPaper = styled(MuiPaper)`
-  border-radius: 8% 10% 11% 9%;
-  animation: fkbarda 2s infinite alternate ease-in-out;
-
-  @keyframes fkbarda {
-    0% {
-      border-radius: 12% 11% 8% 12%;
-    }
-    50%
-    {
-      border-radius: 12% 10% 13% 9%;
-    }
-    100% {
-      border-radius: 12% 8% 12% 7%;
-    }
-  }
-`;
+import { useForm } from "react-hook-form";
 
 function SignUp() {
-  const Data = useContext(Context);
-  const navigate = useNavigate();
-  const usernameRef = useRef(null);
-  const passwordRef = useRef(null);
-  const emailRef = useRef(null);
-  const [usernamevalid, setusernamevalid] = useState(true);
-  const [passwordvalid, setpasswordvalid] = useState(true);
-  const [emailvalid, setemailvalid] = useState(true);
-  const [usernameerror, setUsernameerror] = useState(
-    "Username must be longer than 8 characters"
-  );
+  const [error, setError] = useState(null)
+  function validateEmail(email) {
+    // Regular expression for a basic email validation
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-  const handleLogin = async () => {
-    const username = usernameRef.current.value;
-    const password = passwordRef.current.value;
-    const email = emailRef.current.value;
+    // Use the test method to check if the email matches the pattern
+    return emailPattern.test(email);
+  }
+  function validatePassword(password) {
+    // Regular expressions for password validation
+    const lowercasePattern = /[a-z]/;
+    const uppercasePattern = /[A-Z]/;
+    const numberPattern = /[0-9]/;
 
-    const isUsernameValid = username.length > 8;
-    const isPasswordValid = /^(?=.*\d)(?=.*[a-zA-Z])[a-zA-Z\d]{8,}$/.test(
-      password
+    // Check if the password meets the criteria
+    return (
+      lowercasePattern.test(password) &&
+      uppercasePattern.test(password) &&
+      numberPattern.test(password)
     );
-    const isEmailValid = /\S+@\S+\.\S+/.test(email);
+  }
+  function containsLettersAndNumbers(username) {
+    const letterPattern = /[a-zA-Z]/;
+    const numberPattern = /[0-9]/;
 
-    setusernamevalid(isUsernameValid);
-    setpasswordvalid(isPasswordValid);
-    setemailvalid(isEmailValid);
-    setUsernameerror("Username must be longer than 8 characters");
+    return letterPattern.test(username) && numberPattern.test(username);
+  }
+  const {
+    handleSubmit,
+    register,
+    formState: { errors },
+  } = useForm({});
+  const { SignUpAPI } = useContext(Context);
+  const navigate = useNavigate();
 
-    if (isUsernameValid && isPasswordValid && isEmailValid) {
-      const loginData = { username, password, email };
-      const response = await SignUpAPI(loginData);
-      response === "User already exists"
-        ? (setusernamevalid(false), setUsernameerror("Username already exists"))
-        : setemailvalid(true);
-    }
-  };
 
-  const SignUpAPI = async (user) => {
-    try {
-      const response = await axios.post(
-        `${import.meta.env.VITE_REACT_APP_USERS_CALL}/SignUp`,
-        user
-      );
-      if (response.data !== "User already exists") {
-        Data.setUser(response.data);
-        navigate("/homepage");
-      }
-      return response.data;
-    } catch (error) {
-      console.error(error.message);
-      return response.data;
-    }
-  };
+
+
+  async function handleSingUp(data) {
+    const response = await SignUpAPI(data,navigate);
+    response === "User already exists"
+      ? setError("Not User already exists")
+      : setError(null);
+  }
 
   return (
-    <>
-      <div className="signinpage">
-        <div className="signinmain">
-          <AnimatedPaper
-            sx={{
-              width: 300,
-              mx: "auto",
-              my: 2,
-              p: 3,
-              display: "flex",
-              flexDirection: "column",
-              backgroundColor:'rgba(44,44,44,0.6)',
-              gap: 1,
-              boxShadow: "md",
-              border: !usernamevalid || !passwordvalid || !emailvalid
-                ? "1px solid #ff0e0088"
-                : "1px solid #0082ff88",
-            }}
-            variant="outlined"
-          >
-            <div>
-              <Typography
-                style={{
-                  display: "flex",
-                  width: "100%",
-                  justifyContent: "center",
-                }}
-                variant="h4"
-              >
-                <b>Sign Up</b>
-              </Typography>
-              <Typography variant="body2">
-                Please sign up to continue.
-              </Typography>
-            </div>
-            <FormControl>
-              <FormLabel error={!usernamevalid}>Username</FormLabel>
-              <Input
-                name="Username"
-                type="text"
-                placeholder="Username"
-                error={!usernamevalid}
-                inputRef={usernameRef}
-              />
-              {!usernamevalid && (
-                <FormHelperText error>
-                  <ErrorOutlined />
-                  {usernameerror}
-                </FormHelperText>
-              )}
-            </FormControl>
-            <FormControl>
-              <FormLabel error={!passwordvalid}>Password</FormLabel>
-              <Input
-                name="password"
-                type="password"
-                placeholder="Password"
-                error={!passwordvalid}
-                inputRef={passwordRef}
-              />
-              {!passwordvalid && (
-                <FormHelperText error>
-                  <ErrorOutlined />
-                  Password must contain at least one number, one character, and
-                  one capital letter
-                </FormHelperText>
-              )}
-            </FormControl>
-            <FormControl>
-              <FormLabel error={!emailvalid}>Email</FormLabel>
-              <Input
-                name="email"
-                type="email"
-                placeholder="Email Address"
-                error={!emailvalid}
-                inputRef={emailRef}
-              />
-              {!emailvalid && (
-                <FormHelperText error>
-                  <ErrorOutlined />
-                  Please enter a valid email address
-                </FormHelperText>
-              )}
-            </FormControl>
-            <Button sx={{ mt: 1 }} onClick={handleLogin}>
-              Sign Up
-            </Button>
-            <NavLink to="/signin">
-              <Typography
-                variant="body2"
-                sx={{
-                  justifyContent: "center",
-                  display: "flex",
-                  width: "100%",
-                }}
-              >
-                Already have an account? Sign In
-              </Typography>
-            </NavLink>
-          </AnimatedPaper>
+    <div className="col-span-12 h-full flex justify-center  bg-backgrownd items-center  ">
+      <form
+        onSubmit={handleSubmit((data) => handleSingUp(data))}
+        className="bg-primary shadow-md rounded px-8 pt-10 pb-8  w-[30vw] h-[90vh]  flex flex-col justify-between"
+      >
+        <div className=" flex flex-col gap-6">
+          {/* username */}
+          <div className="h-fit ">
+            <label className="block text-gray-700 text-sm font-bold mb-2">
+              Username
+            </label>
+            {errors.username?.message||error && (
+              <span className="text-red-500">{error||errors.Username.message}</span>
+            )}
+            <input
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              {...register("username", {
+                required: "Username is required",
+                validate: {
+                  maxLength: (v) =>
+                    v.length < 20 ||
+                    "the Username should be lower than 20 chars",
+                  minLength: (v) =>
+                    v.length > 4 ||
+                    "the username need to be higher than 4 chars",
+                  pattern: (v) =>
+                    containsLettersAndNumbers(v) ||
+                    "the username need to contain letters and numbers",
+                },
+              })}
+            />
+          </div>
+          {/* email */}
+          <div className="min-h-fit">
+            <label className="block text-gray-700 text-sm font-bold mb-2">
+              Email
+            </label>
+            {errors.email?.message && (
+              <span className="text-red-500">{errors.email.message}</span>
+            )}
+            <input
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              {...register("email", {
+                required: "email is required",
+                validate: {
+                  minLength: (v) => v.length < 50 || "too many chars",
+                  pattern: (v) => validateEmail(v) || "this is not an email ",
+                },
+              })}
+            />
+          </div>
+          {/* password */}
+          <div className="min-h-fit">
+            <label className="block text-gray-700 text-sm font-bold mb-2">
+              Password
+            </label>
+            {errors.password?.message && (
+              <span className="text-red-500 ">{errors.password.message}</span>
+            )}
+            <input
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              {...register("password", {
+                required: "passowrd is required",
+                validate: {
+                  pattern: (v) =>
+                    validatePassword(v) ||
+                    "the password should contain capital letters numbers and regular letters",
+                },
+              })}
+              type="password"
+            />
+          </div>
         </div>
-      </div>
-    </>
+        <div>
+          <button
+            className="mt-6 block w-full select-none rounded-lg bg-popUp px-6 py-3 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-popborder-popUp/20 transition-all hover:shadow-lg hover:shadow-popborder-popUp/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+            type="submit"
+            data-ripple-light="true"
+          >
+            Register
+          </button>
+          <p className="mt-4 block text-center font-sans text-base font-normal leading-relaxed text-gray-700 antialiased">
+            Already have an account?
+            {/*Link  */}
+            <span
+              className="cursor-pointer font-medium text-blue-500 transition-colors hover:text-blue-700"
+              onClick={() => {
+                LogIn_nav("#");
+              }}
+            >
+              LogIn
+            </span>
+          </p>
+        </div>
+      </form>
+    </div>
   );
 }
 

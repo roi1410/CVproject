@@ -1,12 +1,36 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-
-
 body{
-    background-color: wheat;
+    background-color: "#BFD8AF";
     margin: 0;
     border: 0;
     padding: 0;
 }
+
+
+@layer base {
+    h1 {
+      @apply text-2xl font-bold font-serif;
+    }
+
+    span{
+        @apply font-extralight text-gray-600
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

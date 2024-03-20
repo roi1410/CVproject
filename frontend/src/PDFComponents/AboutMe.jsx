@@ -1,5 +1,4 @@
-import {memo} from "react";
-import { Text, View, Link, StyleSheet, Font } from "@react-pdf/renderer";
+import { Text, View, StyleSheet, Font } from "@react-pdf/renderer";
 import ContactInfo from "./ContactInfo";
  //Primary Bold Font
 import TitilliumWebBlack from "../assets/fonts/TitilliumWeb-Black.ttf";

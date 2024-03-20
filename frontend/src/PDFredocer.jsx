@@ -68,6 +68,11 @@ export function PDFredocer(state, action) {
         ...state,
         company: action.company,
       };
+    case "addProfileImg":
+      return {
+        ...state,
+        profileImg: action.profileImg,
+      };
     default:
       return state;
   }

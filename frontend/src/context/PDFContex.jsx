@@ -1,6 +1,6 @@
 import { StyleSheet } from "@react-pdf/renderer";
-import { createContext, useReducer, useState, useMemo, useEffect } from "react";
-import { PDFredocer } from "./PDFredocer";
+import { createContext, useReducer,useEffect, useState } from "react";
+import { PDFredocer } from "../PDFredocer";
 import { useDebounceValue } from "usehooks-ts";
 import axios from "axios";
 import { useForm } from "react-hook-form";
@@ -17,6 +17,8 @@ export const allContext = createContext({
   register: () => {},
   watch: () => {},
   trigger: () => {},
+  setUrl:()=>{},
+  url:""
 });
 
 const PDFContext = ({ children }) => {
@@ -39,10 +41,11 @@ const PDFContext = ({ children }) => {
         .catch((error) => console.error(error));
     }
   };
+  const [url, setUrl] = useState("");
 
 
   const defultValue = {
-    fullName: "roi",
+    fullName: "defultValue",
     experiences: [
       {
         period: "4",
@@ -53,10 +56,10 @@ const PDFContext = ({ children }) => {
           Management: ["head of  a fullstack team ", "head of cyber"],
         },
       },
+      
     ],
     primaryPosition: "primaryPosition",
-    aboutDescription:
-      "bgjbgdryhrbydhdyhfhfhbdhfhfhdryhrbhdhdfhdfnfgjcchfbcgchfbffjbgdryhrbydhdyhfhfhbdhfhfhdryhrbhdhdfhdfnfgjcchfbcgchfbffjbgdryhrbydhdyhfhfhbdhfhfhdryhrbhdhdfhdfnfgjcchfbcgchfbffj",
+    aboutDescription:"I'm Roi Revivo, driven by a passion for knowledge and problem-solving. During military service, I self-taught music theory and guitar, mastering music creation. I've been fascinated by technology since youth, troubleshooting and innovating.  Despite language barriers, I became the household IT expert, exploring software.Demonstrating my teamwork skills, I successfully navigated complex situations and built strong relationships during combat military service.",
     contactInfo: {
       tel: "0502855522",
       email: "Email@gmail.com",
@@ -103,7 +106,7 @@ const PDFContext = ({ children }) => {
     backgroundImg: "",
     url: {
       git: "https://github.com/roi1410/CVproject",
-      LinkedIn: "",
+      LinkedIn: "www.linkedin.com/in/רועי-רביבו-842b2927a",
       website: "",
     },
   };
@@ -139,6 +142,7 @@ const PDFContext = ({ children }) => {
     },
   });
   const {
+    
     handleSubmit,
     control,
     register,
@@ -177,6 +181,8 @@ const PDFContext = ({ children }) => {
       experiences: debouncedValue.experiences,
     });
     dispatch({ type: "educationChange", education: debouncedValue.education });
+    console.log(url);
+    dispatch({type:"addProfileImg",profileImg:url})
   }, [debouncedValue]);
 
   return (
@@ -193,6 +199,8 @@ const PDFContext = ({ children }) => {
         register,
         watch,
         trigger,
+        setUrl,
+        url
       }}
     >
       {children}

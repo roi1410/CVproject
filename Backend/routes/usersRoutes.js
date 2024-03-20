@@ -1,12 +1,19 @@
 const express = require("express");
 const usersController = require("../controller/usersController");
 const router = express.Router();
+const app = express();
+
 
 router.route("/signup").post(usersController.createUser);
+router.route("/logOut").post(usersController.logoutUser);
 router.route("/signin").post(usersController.Signin);
+router.route("/authenticatedToken").post(usersController.authenticatedRoute)
+router.route("/AddPDF").post(usersController.AddPDF)
+router.route("/AddPrime").post(usersController.AddPrime)
 router.route("/edit/:id").post(usersController.editUserById)
 router.route("/all").get(usersController.getAllUsers);
-router.route("/GetByID/:id").get(usersController.getUserById);
+router.route("/GetByID").get(usersController.getUserById);
 router.route("/all").delete(usersController.deleteAllUsers)
 router.route("/DeleteByID/:id").delete(usersController.deleteById);
+router.route("/sendUserCv").get(usersController.sendUserCv);
 module.exports = router;

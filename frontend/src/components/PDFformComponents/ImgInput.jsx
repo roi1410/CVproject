@@ -1,9 +1,22 @@
-import React, { useState } from "react";
+import { useState, useEffect, useContext } from "react";
+import { allContext } from "../../context/PDFContex";
+import axios from "axios";
+import { uploadImg } from "../../util/utils";
 
-function ImgInput({ register, control, setImgArray }) {
-  function handleImageInput(ImgObj) {
-    setImgArray((prev) => [...prev, ImgObj]);
+function ImgInput() {
+  const { register, url, setUrl } = useContext(allContext);
+
+
+  
+   async function call_uploadIng(img) {
+    console.log("call uplodad");
+    const res= await uploadImg(img)
+    setUrl(res)
+    
+
+    
   }
+
   return (
     <div>
       <label
@@ -34,9 +47,11 @@ function ImgInput({ register, control, setImgArray }) {
           id="dropzone-file"
           type="file"
           className="hidden"
-          onChange={(event) => handleImageInput(event.target.files[0])}
+          onChange={(event) => call_uploadIng(event.target.files[0])}
         />
+     
       </label>
+  
     </div>
   );
 }

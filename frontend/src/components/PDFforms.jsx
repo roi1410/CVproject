@@ -1,14 +1,7 @@
 import { useContext, useReducer, useEffect, useState } from "react";
-import AboutMeForm from "./PDFformComponents/AboutMeForm";
-import { useForm } from "react-hook-form";
-import ContactsForm from "./PDFformComponents/ComtactsForm";
-import ExperienceForm from "./PDFformComponents/ExperienceForm";
-import ExperienceSummery from "./PDFformComponents/ExperienceSummery";
-import EducationFormFather from "./PDFformComponents/EducationFormFather";
-import { PDFredocer } from "../PDFredocer";
-import { allContext } from "../PDFContex";
-import { useDebounceValue, useInterval } from "usehooks-ts";
-import CertificatesForm from "./PDFformComponents/CertificatesForm";
+
+import { allContext } from "../context/PDFContex";
+
 import { Outlet } from "react-router-dom";
 
 function PDFforms() {
@@ -24,7 +17,7 @@ function PDFforms() {
   return (
     <>
       <form
-        className="h-full box-border "
+        className="h-full box-border p-7 "
         onSubmit={handleSubmit((data) => console.log(data))}
       >
         <Outlet/>

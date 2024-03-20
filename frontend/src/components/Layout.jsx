@@ -1,47 +1,16 @@
-import React from 'react';
-import { CssBaseline, ThemeProvider, createTheme } from '@mui/material';
-import { Outlet } from 'react-router-dom';
-import DynamicNavBar from './DynamicNavBar';
+import React from "react";
+import { Outlet, useNavigate } from "react-router-dom";
+import DynamicNavBar from "./DynamicNavBar";
 
 function Layout() {
-  const themeOptions = {
-    palette: {
-      type: 'dark',
-      primary: {
-        main: '#0082ff',
-      },
-      secondary: {
-        main: '#15ff00',
-      },
-      background: {
-        default: 'white',
-        paper: '#313131',
-      },
-      error: {
-        main: '#ff0e00',
-      },
-      warning: {
-        main: '#edff00',
-      },
-      info: {
-        main: '#f900ff',
-      },
-      success: {
-        main: '#00ff09',
-      },
-    },
-  };
-
-  const theme = createTheme(themeOptions);
-
+  const navigate = useNavigate();
+  
   return (
-    <div style={{ backgroundColor: theme.palette.background.default }}>
-      <ThemeProvider theme={theme}>
-        <CssBaseline style={{ color: 'white' }} />
-        <DynamicNavBar />
+    <div className="grid grid-row-12 h-screen">
+      <DynamicNavBar />
+      <div className="row-span-10">
         <Outlet />
-        
-      </ThemeProvider>
+      </div>
     </div>
   );
 }

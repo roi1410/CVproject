@@ -1,46 +1,55 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import PDF from "../PDFComponents/PDF";
 import PDFforms from "./PDFforms";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import Context from "./../context/Context";
 
 function EditPDF() {
+  const nav = useNavigate();
+  const { checkUserRole, isAuthorize } = useContext(Context);
+
+  useEffect(() => {
+    if (!isAuthorize) {
+      return nav("/");
+    }
+  }, []);
+
   const pathArray = [
     "",
     "ContactsForm",
     "ExperienceSummery",
     "EducationFormFather",
     "CertificatesForm",
-    "SendData"
+    "SendData",
   ];
-  const [index, setIndex] = useState(0);
+  const [index, setIndex] = useState(1);
 
   function NextStepHandler() {
-    if (index <5) {
-   
-      setIndex((prev) => prev + 1);
+    if (index < 5) {
+      setIndex(index + 1);
+
     }
-    console.log(index);
+    
   }
   function GoBackHandler() {
     if (index > 0) {
-     
-      setIndex((prev) => prev - 1);
+      setIndex( index - 1);
     }
-    console.log(index);
+    
   }
   return (
-    <div className=" mt-1  bg-black  grid h-90% grid-cols-2">
-      <div className=" border-8 p-10 h-full flex items-center flex-col gap-5">
+    <div className="   bg-backgrownd  grid  grid-cols-6">
+      <div className=" border-8 p-10 h-full flex items-center flex-col gap-5 col-span-2">
         <h1 className=" text-white">PDF</h1>
         <PDF />
       </div>
-      <div className="flex h-full flex-col justify-center gap-2 bg-gray-800 border-8 overflow-scroll">
+      <div className="flex h-full flex-col justify-center gap-2  border-8 overflow-scroll col-span-4">
         <PDFforms />
         <div className="flex justify-between box-border p-4">
           <Link onClick={() => GoBackHandler()} to={pathArray[index]}>
             <button
               onClick={() => {}}
-              className=" p-3  text-indigo-600 dark:text-white border-indigo-600 dark:border-indigo-400 hover:bg-indigo-600 hover:border-indigo-500 inline-flex items-center justify-center rounded-md border  text-center text-base transition hover:text-white lg:"
+              className=" p-3  text-secondary dark:text-white border-sebg-secondary dark:border-indigo-400 hover:bg-secondary hover:border-indigo-500 inline-flex items-center justify-center rounded-md border  text-center text-base transition hover:text-white lg:"
             >
               GoBack
             </button>
@@ -48,7 +57,7 @@ function EditPDF() {
           <Link onClick={() => NextStepHandler()} to={pathArray[index]}>
             <button
               onClick={() => {}}
-              className=" p-3  text-indigo-600 dark:text-white border-indigo-600 dark:border-indigo-400 hover:bg-indigo-600 hover:border-indigo-500 inline-flex items-center justify-center rounded-md border  text-center text-base transition hover:text-white lg:"
+              className=" p-3  text-secondary dark:text-white border-sebg-secondary dark:border-indigo-400 hover:bg-secondary hover:border-indigo-500 inline-flex items-center justify-center rounded-md border  text-center text-base transition hover:text-white lg:"
             >
               Next Step
             </button>
