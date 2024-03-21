@@ -1,7 +1,7 @@
 import { Route, BrowserRouter, Routes } from "react-router-dom";
 import Layout from "./components/Layout";
 import SignIn from "./components/SignIn";
-import MainPage from "./components/mainpage";
+import MainPage from "./components/Mainpage";
 import Context, { ContextProvider } from "./context/Context.jsx"
 import EditPDF from "./components/EditPDF";
 import AboutMe from "./components/PDFformComponents/AboutMeForm.jsx";
