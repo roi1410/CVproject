@@ -1,4 +1,4 @@
-import React from "react";
+import { memo } from "react";
 import { View, Text, StyleSheet, Font, Link } from "@react-pdf/renderer";
 import TitilliumWebBlack from "../assets/fonts/TitilliumWeb-Black.ttf";
 Font.register({
@@ -42,7 +42,6 @@ const styles = StyleSheet.create({
   },
 });
 const ContactInfo = ({ contactInfo }) => {
-
   if (!contactInfo) {
     return null;
   }
@@ -63,19 +62,26 @@ const ContactInfo = ({ contactInfo }) => {
           <Text>Email:</Text>
         </View>
         <View style={styles.colRight}>
-          <Link style={{ display: "inline", color: "#8869b4" }}>{contactInfo.email}</Link>
+          <Link style={{ display: "inline", color: "#8869b4" }}>
+            {contactInfo.email}
+          </Link>
         </View>
       </View>
-      <View style={styles.row}>
-        <View style={styles.colLeft}>
-          <Text>Addr:</Text>
+
+      {contactInfo?.address && (
+        <View style={styles.row}>
+          <View style={styles.colLeft}>
+            <Text>Addr:</Text>
+          </View>
+          <View style={styles.colRight}>
+            <Link style={{ display: "inline", color: "#8869b4" }}>
+              {contactInfo.address}
+            </Link>
+          </View>
         </View>
-        <View style={styles.colRight}>
-          <Text>{contactInfo.address}</Text>
-        </View>
-      </View>
+      )}
     </View>
   );
 };
 //
-export default ContactInfo;
+export default memo(ContactInfo);

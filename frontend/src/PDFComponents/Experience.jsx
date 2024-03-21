@@ -97,13 +97,13 @@ const Experience = ({ period, title, company, description, summary }) => {
     <View style={styles.containerExperience}>
       <View style={styles.containerPositionHeading}>
         <View style={{ width: "190px" }}>
-          <Text style={styles.textPeriod}>{"period: 4 years"}</Text>
+          <Text style={styles.textPeriod}>{"period:" +period}</Text>
         </View>
         <View style={{ width: "300px", textAlign: "center" }}>
-          <Text style={styles.textTitle}> {"Experience"}</Text>
+          <Text style={styles.textTitle}> {"Practical Experience"}</Text>
         </View>
         <View style={{ width: "190px", textAlign: "right" }}>
-          <Text style={styles.textCompany}>{"company:Microsoft"}</Text>
+          <Text style={styles.textCompany}>{"company:"+company}</Text>
         </View>
       </View>
 
@@ -122,7 +122,7 @@ const Experience = ({ period, title, company, description, summary }) => {
           </View>
           <View style={styles.listColumnInner}>
             <Text>{"Frontend" }:</Text>
-            {summary.Frontend.map((item, index) => (
+            {summary?.Frontend?.map((item, index) => (
               <Text key={index}>
                 <Text style={{ marginHorizontal: 8 }}>• </Text>
                 {item}
@@ -140,7 +140,7 @@ const Experience = ({ period, title, company, description, summary }) => {
           </View>
           <View style={styles.listColumnInner}>
             <Text>{"Backend "}:</Text>
-            {summary.Backend.map((item, index) => (
+            {summary?.Backend?.map((item, index) => (
               <Text key={index}>
                 <Text style={{ marginHorizontal: 8 }}>• </Text>
                 {item}
@@ -158,7 +158,7 @@ const Experience = ({ period, title, company, description, summary }) => {
           </View>
           <View style={styles.listColumnInner}>
             <Text>{"management"}:</Text>
-            {summary.management.map((item, index) => (
+            {summary?.Management?.map((item, index) => (
               <Text key={index}>
                 <Text style={{ marginHorizontal: 8 }}>• </Text>
                 {item}
@@ -171,4 +171,4 @@ const Experience = ({ period, title, company, description, summary }) => {
   );
 };
 
-export default memo(Experience);
+export default Experience;

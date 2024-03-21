@@ -28,9 +28,10 @@ const styles = StyleSheet.create({
   containerColInner: {
     flexGrow: 2,
     flexWrap: "wrap",
+    flexDirection:"column",
     padding: 4,
     marginLeft: 4,
-    // border: "1px solid #ccc",
+    border: "1px solid #ccc",
     width: "30%",
   },
   containerAwardedHeading: {
@@ -52,6 +53,15 @@ const styles = StyleSheet.create({
   headingTitled: {
     fontWeight: 800,
   },
+  containerList:{
+    flexGrow: 2,
+    flexWrap: "wrap",
+    flexDirection:"column",
+    padding: 4,
+    marginLeft: 4,
+    border: "1px solid #ccc",
+    width: "30%",
+  }
 });
 
 const Education = ({ education }) => {
@@ -73,9 +83,8 @@ const Education = ({ education }) => {
               <Text style={styles.headingTitled}>{item.titled}</Text>
             </View>
             <View style={styles.containerList}>
-              {item.awarded.map((award, awardIndex) => (
-                <Text key={awardIndex}>
-                  <Text style={{ marginHorizontal: 8 }}>• </Text>
+              {item.awarded && item.awarded.map((award, awardIndex) => (
+                <Text style={{flexDirection:"row"}} key={awardIndex}>
                   {award}
                 </Text>
               ))}

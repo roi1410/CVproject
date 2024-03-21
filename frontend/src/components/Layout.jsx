@@ -1,17 +1,18 @@
-import React from 'react'
-import NavBar from './NavBar'
-import { Outlet } from 'react-router-dom'
+import React from "react";
+import { Outlet, useNavigate } from "react-router-dom";
+import DynamicNavBar from "./DynamicNavBar";
 
 function Layout() {
+  const navigate = useNavigate();
+  
   return (
-    <>
-    <NavBar/>
-    <Outlet/>
-    
-    
-    </>
-    
-  )
+    <div className="grid grid-row-12 h-screen">
+      <DynamicNavBar />
+      <div className="row-span-10">
+        <Outlet />
+      </div>
+    </div>
+  );
 }
 
-export default Layout
+export default Layout;
