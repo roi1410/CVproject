@@ -1,6 +1,4 @@
-import {memo} from "react";
 import { View, StyleSheet, Image, Text, Font, Link } from "@react-pdf/renderer";
-import ProfileImage from "../assets/image/cv-square_300x300.jpg";
 import headerBackground from "../assets/image/code-bkg.jpg";
 import InternetIcon from "../assets/image/internet.png";
 import GitHubIcon from "../assets/image/github.png";
