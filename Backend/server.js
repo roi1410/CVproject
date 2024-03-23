@@ -1,8 +1,8 @@
 const bodyParser = require("body-parser");
 const app = require("./app");
 const mongoose = require("mongoose");
+const { error, log } = require("console");
 const dotenv = require("dotenv");
-const { error } = require("console");
 dotenv.config({ path: "./.env" });
 const port = 8000;
 app.use(bodyParser.json());

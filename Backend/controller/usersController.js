@@ -4,7 +4,11 @@ const saltRounds = 10;
 const jwt = require("jsonwebtoken");
 const { findById } = require("../models/usersModel");
 const { findByIdAndUpdate } = require("../models/usersModel");
-const secret = "secretWord";
+const dotenv = require("dotenv");
+dotenv.config({ path: "./.env" });
+
+const secret = process.env.SECRET
+
 
 exports.middelChecker = async (req, res, next) => {
   try {
@@ -249,7 +253,7 @@ exports.AddPDF = async (req, res) => {
     const PDF = req.body;
     const token = req.cookies.token;
     if (!token) {
-      console.log(token);
+      
 
       return res.status(401).json({ massage: "No token provided" });
     }
