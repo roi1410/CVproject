@@ -7,7 +7,7 @@ module.exports = app;
 app.use(express.json());
 const cookieParser=require("cookie-parser")
 const corsOptions = {
-  origin: "http://localhost:5173",
+  origin: "https://cvproject-1.onrender.com",
   credentials: true,
 };
 const cors = require("cors");
