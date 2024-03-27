@@ -1,0 +1,44 @@
+welcome to my CV project 
+
+
+
+my name is roi revivo I develp this project 
+
+
+the perpes of this project is to create CV 
+Main tec- react jsx and on the backend using node.js and express
+mange users with JWT  
+
+all the backend data flow throw  fille contex
+PDF data flow btween PDF contex and PDFredocer and  context  fiile  file for exsisting PDF and  save PDF  
+
+
+
+
+===project init ====
+npm i in backend then node server.js
+mpm i in frontend then npm run dev
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -9,7 +9,7 @@ function HomePage() {
         <header className="   bg-gradient-to-t from-primary via-secondary  ">
           <div className="lg:px-28 lg:py-4 px-2 py-2 transform ">
             <div className="lg:grid lg:grid-cols-2 block lg:px-30 lg:py-16 px-2 py-2">
-              <Link to={"PremiumPage"} className="">
+              <Link to={"Premium"} className="">
                 <button
                   href="#"
                   className="flex bg-black mt-4 py-1 px-4 mb-4 bg-opacity-20 text-xs text-white rounded lg:rounded-full"
@@ -55,7 +55,7 @@ function HomePage() {
                   </p>
                   <div className="pt-10 flex">
                     <Link
-                      to={"PremiumPage"}
+                      to={"Premium"}
                       className="flex bg-gray-800 py-2 px-4 text-sm font-semibold text-white rounded-full"
                     >
                       Start now

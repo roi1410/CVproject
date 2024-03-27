@@ -142,7 +142,7 @@ export const ContextProvider = ({ children }) => {
           withCredentials: true,
         }
       );
-      console.log(response.data);
+
       if (response.data !== "User already exists") {
         setUser(response.data);
         navigate("/");
@@ -160,18 +160,21 @@ export const ContextProvider = ({ children }) => {
     }
   };
   const logOut = async () => {
-  
     localStorage.clear();
     setIsAuthorize(false);
-    
+
     const res = await axios.post(
-      `${import.meta.env.VITE_REACT_APP_USERS_CALL}/logOut`,"data",
+      `${import.meta.env.VITE_REACT_APP_USERS_CALL}/logOut`,
+      "data",
       {
         withCredentials: true,
       }
     );
-    if (res === "Logged out successfully") localStorage.clear();
-    setIsAuthorize(false);
+    if (res === "Logged out successfully") {
+      localStorage.clear();
+      setIsAuthorize(false);
+      return true;
+    }
   };
 
   return (

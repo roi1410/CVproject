@@ -1,8 +1,7 @@
 import * as React from "react";
-import logoutLogo from "../assets/image/icons/logout.png"
+import logoutLogo from "../assets/image/icons/logout.png";
 
-
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import Context from "../context/Context";
 import { useContext, useEffect } from "react";
 import logo from "../assets/image/icons/logo.png";
@@ -11,10 +10,15 @@ import logo from "../assets/image/icons/logo.png";
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 function DynamicNavBar() {
-  const { checkUserRole, isAuthorize ,logOut} = useContext(Context);
+  const { checkUserRole, isAuthorize, logOut } = useContext(Context);
   useEffect(() => {
     checkUserRole();
   }, []);
+  const nav = useNavigate();
+  async function handleLOgOut() {
+    logOut();
+    nav("/");
+  }
 
   const pages = isAuthorize
     ? ["PDFForms", "signing", "Premium", "Gallery", "singUp"]
@@ -36,10 +40,15 @@ function DynamicNavBar() {
         })}
       </div>
       <div className=" flex gap-3 items-center">
-        <img onClick={()=>logOut()}  className="h-10 cursor-pointer"src={logoutLogo} alt="" />
-      <Link className="pr-10" to={"/"}>
-        <img src={logo} alt="oops" id="logo" />
-      </Link>
+        <img
+          onClick={() => handleLOgOut()}
+          className="h-10 cursor-pointer"
+          src={logoutLogo}
+          alt=""
+        />
+        <Link className="pr-10" to={"/"}>
+          <img src={logo} alt="oops" id="logo" />
+        </Link>
       </div>
     </nav>
   );
