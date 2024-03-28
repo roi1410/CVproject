@@ -45,9 +45,11 @@ exports.createUser = async (req, res) => {
         expiresIn: "24h",
       });
       res.cookie("token", token, {
+        // httpsOnly: true,
         httpOnly: true,
         maxAge: 360000,
         samSite: "strict",
+        secure:'production'
       });
       return res.send(newUsers);
     } else {
