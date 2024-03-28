@@ -45,7 +45,7 @@ exports.createUser = async (req, res) => {
         expiresIn: "24h",
       });
       res.cookie("token", token, {
-        httpOnly: true,
+        httpsOnly: true,
         maxAge: 360000,
         samSite: "strict",
       });
@@ -95,7 +95,7 @@ exports.Signin = async (req, res) => {
         expiresIn: "24h",
       });
       res.cookie("token", token, {
-        httpOnly: true,
+        httpsOnly: true,
         maxAge: 360000,
         samSite: "strict",
       });
