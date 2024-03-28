@@ -219,6 +219,7 @@ exports.authenticatedRoute = async (req, res, next) => {
 exports.AddPrime = async (req, res) => {
   try {
     const token = req.cookies.token;
+    console.log(token)
 
     if (!token) {
       return res.status(401).json({ massage: "No token provided" });
