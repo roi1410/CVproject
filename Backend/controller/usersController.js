@@ -48,6 +48,7 @@ exports.createUser = async (req, res) => {
         httpsOnly: true,
         maxAge: 360000,
         samSite: "strict",
+        secure:'production'
       });
       return res.send(newUsers);
     } else {
