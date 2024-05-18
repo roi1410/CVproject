@@ -5,12 +5,11 @@ welcome to my CV project
 my name is roi revivo I develp this project with ariel ohana 
 
 
-the perpes of this project is to create CV 
-Main tec- react jsx and on the backend using node.js and express
-mange users with JWT  
-
-all the backend data flow throw  fille contex
-PDF data flow btween PDF contex and PDFredocer and  context  fiile  file for exsisting PDF and  save PDF  
+CV creator website that helps with CV creation. On the site, we have PDFs that change according to user input live.
+Tech: on the backend side we use Node. js, Express, JWT, and MongoDB.  frontend side we use React ,React-Router-Dom,React-Hook-Forms, and 
+PDF-Render.
+challenge- render smoothly PDF and complex forms on the same component. 
+Overcome the challenge- using react hook forms and debounce value to improve performance.
 
 
 
